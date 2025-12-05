@@ -1,0 +1,14 @@
+Single Responsibility Principle
+
+A class should have only one reason to change, i.e. one responsibility
+
+Eg - A User class should only handle user-related logic
+
+BadCode
+let suppose we have an invoice class, and it has some functions like addAmount, getAmount
+up to this point its good
+but if this also has a function to Send Notifications or save to database than this class has
+multiple responsibilities that's not good.
+
+GoodCode
+so we create 2 different classes for handling DB operations and email
