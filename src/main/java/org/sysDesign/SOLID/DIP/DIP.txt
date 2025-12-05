@@ -1,0 +1,68 @@
+Dependency Inversion Principle
+
+--> High level modules should not depend on low level modules, both should depend on abstraction
+
+public class NotificationService{
+    private EmailService emailService;
+    private SMSService smsService;
+
+    public NotificationService(){
+        this.emailService = new EmailService();
+        this.smsService = new SMSService();
+    }
+
+    public void notifyByEmail(String msg){
+        emailService.sendEmail(msg);
+    }
+
+    public void notifyBySMS(String msg){
+        smsService.sendSMS(msg);
+    }
+}
+// now this is tightly coupled and not flexible and we cannot isolate them in testing
+// violates DIP where high level module(Notification Service) is dependent on low level modules
+// like EmailService and SMSService
+
+FIX
+now notification service is not going to depend on any module
+what we will do we will create an interface Notification channel
+and concrete classes will have the implementation
+
+EmailService implements NotificationChannel{
+    @Override
+    public void send(String msg){
+        // logic
+    }
+}
+
+SMSService implements NotificationChannel{
+    @Override
+    public void send(String msg){
+        // logic
+    }
+}
+
+public class NotificationService{
+    private NotificationChannel notificationChannel;
+
+    public NotificationService( NotificationChannel channel){
+        this.notificationChannel = channel;
+    }
+
+    public void notify(String msg){
+        notificationChannel.send(msg);
+    }
+}
+
+public class Main{
+    public static void main(){
+        NotificationService emailNotification = new NotificationService(new EmailService());
+        emailNotification.notify("msg");
+
+        NotificationService smsService = new NotificationService(new SMSService());
+        smsService.notify("msg");
+    }
+}
+
+// now code is more flexible as we can introduce new service without changing current code
+// not depend on concrete classes

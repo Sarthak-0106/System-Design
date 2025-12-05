@@ -1,0 +1,50 @@
+Interface Segregation Principle
+
+class is not burdened with methods that they don't need
+purpose is to break large, general purpose interfaces to smaller more specific ones
+
+Improves maintainability, flexibility and testability
+by ensuring classes have only dependencies they actually require
+
+// Bad Code
+public interface Machine{
+    void print(Document doc);
+    void scan(Document doc);
+    void copy(Document doc);
+}
+
+public class MultiPurposeMachine implements Machine{
+    // implement all the methods (print, scan, copy)
+}
+
+public class SimplePrinter implements Machine{
+    // now this does not support scanning, but we still have to implement it
+}
+
+FIX
+break interface into smaller interfaces
+
+public interface Printer{
+    void print(Document doc);
+}
+
+public interface Copier{
+    void copy(Document doc);
+}
+
+public interface Scanner{
+    void scan(Document doc);
+}
+
+now we can add custom functionality to where ever required
+// simple printer only implements print
+public class SimplePrinter implements Printer{
+    @Override
+    void print(Document doc){
+        // business logic
+    }
+}
+
+and we can also have a multipurpose printer that implements all 3 interfaces
+
+
