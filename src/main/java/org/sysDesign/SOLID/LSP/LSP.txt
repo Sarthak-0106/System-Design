@@ -1,0 +1,19 @@
+LSP -> Liskov Substitution Principle
+
+Objects of a superclass should be replaceable with objects of a subclass without altering correctness
+of the program.
+
+
+let's suppose we have a bird interface, and it has a fly method but ostrich cant fly so we still have
+to implement the method
+now in this case ostrich is not a suitable replacement for bird
+so LSP is violated
+
+fix -->
+we will create a file system
+// badCode
+A class interface called as file which has 2 methods read and write, and we have a child class of this which
+is read only file, but we have to implement write also (should not support write)
+
+File superclass object should be able substituted by child class
+solution --> split the large interfaces with smaller ones
