@@ -1,0 +1,6 @@
+OCP -> Open/Close Principle
+
+Software entities should be open for extension but closed for modification
+like adding new functionality to a system using "inheritance" or "composition" without modifying existing code
+
+basically we don't want to disturb the code which is already tested
